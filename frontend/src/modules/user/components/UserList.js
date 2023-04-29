@@ -19,6 +19,7 @@ export default function UserList(prop) {
         {prop.items.map((user) => (
           <UserItem
             id={user.id}
+            key={user.id}
             name={user.name}
             image={user.image}
             placeCount={user.places}

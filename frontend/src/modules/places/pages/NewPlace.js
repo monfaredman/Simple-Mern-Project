@@ -1,5 +1,6 @@
 import React, { useCallback, useReducer } from "react";
 import Input from "../../../shared/components/FormElements/Input";
+import Button from "../../../shared/components/FormElements/Button";
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
@@ -17,6 +18,7 @@ const formReducer = (state, action) => {
           formIsValid = formIsValid && state.inputs[inputId].isValid;
         }
       }
+      console.log(formIsValid);
       return {
         ...state,
         inputs: {
@@ -31,8 +33,15 @@ const formReducer = (state, action) => {
 };
 
 export default function NewPlace() {
-  const inputHandler = useCallback((id, value, isValid) => {}, []);
-  const [state, dispatch] = useReducer(formReducer, {
+  const inputHandler = useCallback((id, value, isValid) => {
+    dispatch({
+      type: "CHANGE_INPUT",
+      inputId: id,
+      value,
+      isValid,
+    });
+  }, []);
+  const [formState, dispatch] = useReducer(formReducer, {
     Inputs: {
       title: {
         value: "",
@@ -66,6 +75,9 @@ export default function NewPlace() {
         validators={[VALIDATOR_MINLENGTH(5)]}
         onInput={inputHandler}
       />
+      <Button type="submit" disabled={!formState.isValid}>
+        Add Place
+      </Button>
     </form>
   );
 }

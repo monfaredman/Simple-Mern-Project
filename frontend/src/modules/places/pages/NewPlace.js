@@ -6,7 +6,6 @@ import {
   VALIDATOR_REQUIRE,
 } from "../../../shared/util/validatiors";
 import "./PlaceForm.css";
-import { useForm } from "../../../shared/hooks/form-hook";
 
 const formReducer = (state, action) => {
   switch (action.type) {

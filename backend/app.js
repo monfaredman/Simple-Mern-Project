@@ -9,6 +9,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.post("/products", mongoPractice.createProduct);
+app.get("/products", mongoPractice.getProduct);
 // app.use("/api/places", placeRoutes);
 // app.use("/api/users", usersRoutes);
 // app.use((req, res, next) => {

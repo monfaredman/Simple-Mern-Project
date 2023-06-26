@@ -4,25 +4,25 @@ const Schema = mongoose.Schema;
 
 const placeSchema = new Schema({
   title: {
-    type: "String",
+    type: String,
     required: true,
   },
   description: {
-    type: "String",
+    type: String,
     required: true,
   },
   imageUrl: {
-    type: "String",
+    type: String,
     required: false,
   },
   location: {
-    lat: { type: "Number", required: true },
-    lng: { type: "Number", required: true },
+    lat: { type: Number, required: true },
+    lng: { type: Number, required: true },
   },
   creator: {
-    type: mongoose.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     required: false,
-    ref: "Place",
+    ref: "User", // Reference the "User" model
   },
 });
 

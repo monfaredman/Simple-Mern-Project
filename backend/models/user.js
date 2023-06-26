@@ -24,9 +24,9 @@ const userSchema = new Schema({
   },
   places: [
     {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       required: false,
-      ref: "User",
+      ref: "Place",
     },
   ],
 });

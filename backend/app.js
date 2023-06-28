@@ -3,15 +3,21 @@ const placeRoutes = require("./routes/places.js");
 const usersRoutes = require("./routes/users.js");
 const bodyParser = require("body-parser");
 const HttpError = require("./models/http-error");
-// const mongoPractice = require("./mongo.js");
-// const mongoPractice = require("./mongoose.js");
 const mongoose = require("mongoose");
 
 const app = express();
 
 app.use(bodyParser.json());
-// app.post("/products", mongoPractice.createdProduct);
-// app.get("/products", mongoPractice.getProduct);
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin,X-Requested-With,Content-Type,Accept,Authorization"
+  );
+  res.setHeader('Access-Control-Allow-Methods','GW')
+  next();
+});
+
 app.use("/api/places", placeRoutes);
 app.use("/api/users", usersRoutes);
 app.use((req, res, next) => {

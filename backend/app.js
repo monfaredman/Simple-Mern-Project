@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const placeRoutes = require("./routes/places.js");
 const usersRoutes = require("./routes/users.js");
 const bodyParser = require("body-parser");
@@ -8,15 +9,18 @@ const mongoose = require("mongoose");
 const app = express();
 
 app.use(bodyParser.json());
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin,X-Requested-With,Content-Type,Accept,Authorization"
-  );
-  res.setHeader('Access-Control-Allow-Methods','GW')
-  next();
-});
+app.use(
+  cors({
+    allowedHeaders: [
+      "Origin",
+      "X-Requested-With",
+      "Content-Type",
+      "Accept",
+      "Authorization",
+    ],
+    methods: ["GET", "POST", "DELETE", "PATCH"],
+  })
+);
 
 app.use("/api/places", placeRoutes);
 app.use("/api/users", usersRoutes);

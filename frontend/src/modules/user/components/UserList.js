@@ -18,11 +18,11 @@ export default function UserList(prop) {
       <ul>
         {prop.items.map((user) => (
           <UserItem
-            id={user.id}
-            key={user.id}
+            key={user._id}
+            id={user._id}
             name={user.name}
             image={user.image}
-            placeCount={user.places}
+            placeCount={user.places.length}
           />
         ))}
       </ul>

@@ -5,7 +5,7 @@ const { check } = require("express-validator");
 
 router.get("/", usersControllers.getUsers);
 router.post(
-  "/singup",
+  "/signup",
   [
     check("name").not().isEmpty(),
     check("email").normalizeEmail().isEmail(),
@@ -13,6 +13,6 @@ router.post(
   ],
   usersControllers.signup
 );
-router.get("/login", usersControllers.login);
+router.post("/login", usersControllers.login);
 
 module.exports = router;

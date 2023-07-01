@@ -13,7 +13,6 @@ const getUsers = async (req, res, next) => {
     );
     return next(error);
   }
-  console.log(users);
   res.json({ users: users.map((user) => user.toObject({ getter: true })) });
 };
 
@@ -75,7 +74,10 @@ const login = async (req, res, next) => {
       new HttpError("Invalid credentials, could not log you in.", 401)
     );
   }
-  res.json({ message: "Loggen in!" });
+  res.json({
+    message: "Loggen in!",
+    user: existingUser.toObject({ getters: true }),
+  });
 };
 
 exports.getUsers = getUsers;

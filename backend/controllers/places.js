@@ -53,7 +53,6 @@ const getPlacesByUserId = async (req, res, next) => {
     );
     return next(error);
   }
-  console.log(userWithPlaces);
   if (!userWithPlaces || userWithPlaces.places.length === 0) {
     const error = new HttpError(
       "Could not find places for the provided user id!",
@@ -109,7 +108,6 @@ const createPlace = async (req, res, next) => {
     await user.save({ session: session });
     await session.commitTransaction();
   } catch (err) {
-    console.log(err);
     const error = new HttpError(
       "Creating place failed, please try again.",
       500

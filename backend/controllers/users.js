@@ -13,7 +13,6 @@ const getUsers = async (req, res, next) => {
     );
     return next(error);
   }
-  console.log(users);
   res.json({ users: users.map((user) => user.toObject({ getter: true })) });
 };
 

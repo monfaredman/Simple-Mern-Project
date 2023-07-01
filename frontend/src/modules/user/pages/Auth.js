@@ -7,6 +7,7 @@ import { AuthContext } from "../../../shared/context/auth-context";
 import ErrorModal from "../../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../../shared/components/UIElements/LoadingSpinner";
 import { useHttpClient } from "../../../shared/hooks/http-hook";
+import ImageUpload from "../../../shared/components/FormElements/ImageUpload";
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
@@ -36,7 +37,7 @@ export default function Auth() {
 
   const authSubmitHandler = async (event) => {
     event.preventDefault();
-
+    console.log(formState);
     if (isLoginMode) {
       try {
         const responseData = await sendRequest(
@@ -74,7 +75,7 @@ export default function Auth() {
   const switchModeHandler = () => {
     if (!isLoginMode) {
       setFormData(
-        { ...formState.inputs, name: undefined },
+        { ...formState.inputs, name: undefined, image: undefined },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
     } else {
@@ -83,6 +84,10 @@ export default function Auth() {
           ...formState.inputs,
           name: {
             value: "",
+            isValid: false,
+          },
+          image: {
+            value: null,
             isValid: false,
           },
         },
@@ -110,6 +115,9 @@ export default function Auth() {
               errorText="Please enter a name."
               onInput={inputHandler}
             />
+          )}
+          {!isLoginMode && (
+            <ImageUpload center id="image" onInput={inputHandler} />
           )}
           <Input
             id="email"

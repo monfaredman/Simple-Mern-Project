@@ -37,7 +37,6 @@ export default function Auth() {
 
   const authSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(formState);
     if (isLoginMode) {
       try {
         const responseData = await sendRequest(
@@ -55,17 +54,15 @@ export default function Auth() {
       } catch (err) {}
     } else {
       try {
+        const formData = new FormData();
+        formData.append("name", formState.inputs.name.value);
+        formData.append("email", formState.inputs.email.value);
+        formData.append("password", formState.inputs.password.value);
+        formData.append("image", formState.inputs.image.value);
         const responseData = await sendRequest(
           "http://localhost:5000/api/users/signup",
           "POST",
-          JSON.stringify({
-            name: formState.inputs.name.value,
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value,
-          }),
-          {
-            "Content-Type": "application/json",
-          }
+          formData
         );
 
         auth.login(responseData.user.id);

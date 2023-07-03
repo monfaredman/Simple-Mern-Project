@@ -1,4 +1,6 @@
 const express = require("express");
+const fs = require("fs");
+const path = require("path");
 const cors = require("cors");
 const placeRoutes = require("./routes/places.js");
 const usersRoutes = require("./routes/users.js");
@@ -7,8 +9,21 @@ const HttpError = require("./models/http-error");
 const mongoose = require("mongoose");
 
 const app = express();
+// Middleware to redirect HTTP to HTTPS
+const forceHttps = (req, res, next) => {
+  if (!req.secure) {
+    return res.redirect(`https://${req.headers.host}${req.url}`);
+  }
+  next();
+};
 
+// Apply the middleware globally
+app.use(forceHttps);
 app.use(bodyParser.json());
+app.use(
+  "/uploads/images",
+  express.static(path.join(__dirname, "uploads", "images"))
+);
 app.use(
   cors({
     allowedHeaders: [
@@ -29,6 +44,11 @@ app.use((req, res, next) => {
   throw error;
 });
 app.use((error, req, res, next) => {
+  if (req.file) {
+    fs.unlink(req.file.path, (err) => {
+      console.log(err);
+    });
+  }
   if (res.headerSent) {
     return next(error);
   }

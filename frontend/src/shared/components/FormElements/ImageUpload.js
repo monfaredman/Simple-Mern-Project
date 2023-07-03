@@ -33,7 +33,8 @@ export default function ImageUpload(props) {
       setIsValid(false);
       fileIsValid = false;
     }
-    props.onInput(props.id, pickedFile, fileIsValid);
+    console.log(pickedFile);
+    props.onInput(props.id, pickedFile[0], fileIsValid);
   };
   return (
     <div className="form-control">
@@ -44,6 +45,7 @@ export default function ImageUpload(props) {
         type="file"
         accept=".jpg,.png,.jpeg"
         onChange={pickedHandler}
+        name={props.id}
       />
       <div className={`image-upload ${props.center && "center"}`}>
         <div className="image-upload__preview">

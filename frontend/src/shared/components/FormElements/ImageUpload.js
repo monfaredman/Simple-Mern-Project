@@ -33,7 +33,6 @@ export default function ImageUpload(props) {
       setIsValid(false);
       fileIsValid = false;
     }
-    console.log(pickedFile);
     props.onInput(props.id, pickedFile[0], fileIsValid);
   };
   return (

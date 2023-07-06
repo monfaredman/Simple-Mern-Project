@@ -92,7 +92,7 @@ const PlaceItem = (props) => {
             {auth.userId === props.createdId && (
               <Button to={`/places/${props.id}`}>EDIT</Button>
             )}
-            {auth.userId === props.createdId && (
+            {auth.userId === props.creatorId && (
               <Button danger onClick={showDeleteWarningHandler}>
                 DELETE
               </Button>

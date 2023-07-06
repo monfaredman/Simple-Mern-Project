@@ -1,4 +1,6 @@
 const HttpError = require("../models/http-error");
+const fs = require("fs");
+const path = require("path");
 const { validationResult } = require("express-validator");
 const Place = require("../models/place");
 const User = require("../models/user");
@@ -81,8 +83,7 @@ const createPlace = async (req, res, next) => {
     location: coordinates,
     address,
     creator,
-    imageUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Empire_State_Building_%28aerial_view%29.jpg/400px-Empire_State_Building_%28aerial_view%29.jpg",
+    image: "https://localhost:5000/" + req.file.path,
   });
   let user;
   try {
@@ -171,6 +172,10 @@ const deletePlace = async (req, res, next) => {
     const error = new HttpError("Could not find place for this id.", 404);
     return next(error);
   }
+  const imageUrl = place.image;
+  const cleanedImageUrl = imageUrl.slice(22);
+  let imagePath = path.join(__dirname, cleanedImageUrl);
+  imagePath = imagePath.replace("controllers", "");
   try {
     session = await mongoose.startSession();
     session.startTransaction();
@@ -187,7 +192,18 @@ const deletePlace = async (req, res, next) => {
   } finally {
     session?.endSession();
   }
-
+  // imagePath = imagePath.replace("https://localhost:5000", "");
+  if (fs.existsSync(imagePath)) {
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Image deleted successfully");
+      }
+    });
+  } else {
+    console.log("File does not exist");
+  }
   res.status(200).json({ message: "Deleted place." });
 };
 

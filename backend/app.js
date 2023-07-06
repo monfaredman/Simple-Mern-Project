@@ -7,8 +7,10 @@ const usersRoutes = require("./routes/users.js");
 const bodyParser = require("body-parser");
 const HttpError = require("./models/http-error");
 const mongoose = require("mongoose");
+const https = require("https");
 
 const app = express();
+
 // Middleware to redirect HTTP to HTTPS
 const forceHttps = (req, res, next) => {
   if (!req.secure) {
@@ -17,7 +19,6 @@ const forceHttps = (req, res, next) => {
   next();
 };
 
-// Apply the middleware globally
 app.use(forceHttps);
 app.use(bodyParser.json());
 app.use(
@@ -53,8 +54,13 @@ app.use((error, req, res, next) => {
     return next(error);
   }
   res.status(error.code || 500);
-  res.json({ message: error.message || "An unknown error occured!" });
+  res.json({ message: error.message || "An unknown error occurred!" });
 });
+
+const options = {
+  key: fs.readFileSync("./private-key.pem"), // Update with your private key file path
+  cert: fs.readFileSync("./certificate.pem"), // Update with your certificate file path
+};
 
 mongoose
   .connect(
@@ -62,7 +68,11 @@ mongoose
   )
   .then(() => {
     console.log("connected to database!");
-    app.listen(5000); // start Node + Express + Mongoose server on port 5000
+
+    const server = https.createServer(options, app);
+    server.listen(5000, () => {
+      console.log("Server running on port 5000");
+    });
   })
   .catch((err) => {
     console.log(err);

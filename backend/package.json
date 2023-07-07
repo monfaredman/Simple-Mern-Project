@@ -10,11 +10,13 @@
   "author": "monfaredman",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-validator": "^6.2.0",
     "https": "^1.0.0",
+    "jsonwebtoken": "^9.0.1",
     "mongodb": "^3.3.4",
     "mongoose": "^7.3.1",
     "mongoose-unique-validator": "^4.0.0",

@@ -49,7 +49,9 @@ const NewPlace = () => {
       formData.append("creator", auth.userId);
       const imageFile = formState.inputs.image.value;
       formData.append("image", imageFile);
-      await sendRequest("https://localhost:5000/api/places", "POST", formData);
+      await sendRequest("https://localhost:5000/api/places", "POST", formData, {
+        Authorization: "Bearer" + " " + auth.token,
+      });
       history.push("/");
     } catch (err) {}
   };

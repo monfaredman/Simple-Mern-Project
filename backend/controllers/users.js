@@ -57,7 +57,7 @@ const signup = async (req, res, next) => {
     name,
     email,
     password: hashedPassword,
-    image: "https://localhost:5000/" + req.file.path,
+    image: process.env.REACT_APP_ASSET_URL + req.file.path,
     places: [],
   });
   try {
@@ -71,7 +71,7 @@ const signup = async (req, res, next) => {
   try {
     token = jwt.sign(
       { userId: createdUser.id, email: createdUser.email },
-      "supersecret_dont_share",
+      process.env.JWT_KEY,
       { expiresIn: "1h" }
     );
   } catch (err) {
@@ -121,7 +121,7 @@ const login = async (req, res, next) => {
   try {
     token = jwt.sign(
       { userId: existingUser.id, email: existingUser.email },
-      "supersecret_dont_share",
+      process.env.JWT_KEY,
       { expiresIn: "1h" }
     );
   } catch (err) {

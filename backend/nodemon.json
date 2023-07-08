@@ -1,0 +1,8 @@
+{
+  "env": {
+    "DB_USER": "moslemhosseinpour1998",
+    "DB_PASSWORD": "ijtpz68bDSQ8aPHI",
+    "DB_NAME": "",
+    "JWT_KEY": "supersecret_dont_share"
+  }
+}

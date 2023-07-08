@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
 
-let loggoutTimer;
 export const useAuth = () => {
   const [token, setToken] = useState(false);
   const [userId, setUserId] = useState(false);

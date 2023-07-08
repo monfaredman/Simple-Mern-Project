@@ -83,7 +83,7 @@ const createPlace = async (req, res, next) => {
     location: coordinates,
     address,
     creator: req.userData.userId,
-    image: "https://localhost:5000/" + req.file.path,
+    image: process.env.REACT_APP_ASSET_URL + req.file.path,
   });
   let user;
   try {
@@ -203,7 +203,6 @@ const deletePlace = async (req, res, next) => {
   } finally {
     session?.endSession();
   }
-  // imagePath = imagePath.replace("https://localhost:5000", "");
   if (fs.existsSync(imagePath)) {
     fs.unlink(imagePath, (err) => {
       if (err) {

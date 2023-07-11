@@ -1,7 +1,3 @@
-[build]
-  command = "npm install && npm run build"
-  publish = "dist" # Adjust this path if your build output directory is different
-
 [[redirects]]
   from = "/*"
   to = "/index.html"

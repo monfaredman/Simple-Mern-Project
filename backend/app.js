@@ -78,5 +78,4 @@ mongoose
   });
 
 // Export your app wrapped in serverless-http
-app.use("/.netlify/functions/api", router);
 module.exports.handler = serverless(app);

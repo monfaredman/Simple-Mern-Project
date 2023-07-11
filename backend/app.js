@@ -78,4 +78,5 @@ mongoose
   });
 
 // Export your app wrapped in serverless-http
+app.use("/.netlify/publish", router);
 module.exports.handler = serverless(app);

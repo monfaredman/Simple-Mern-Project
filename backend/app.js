@@ -3,10 +3,10 @@ const serverless = require("serverless-http");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
-const placeRoutes = require("../routes/places.js");
-const usersRoutes = require("../routes/users.js");
+const placeRoutes = require("./routes/places.js");
+const usersRoutes = require("./routes/users.js");
 const bodyParser = require("body-parser");
-const HttpError = require("../models/http-error.js");
+const HttpError = require("./models/http-error.js");
 const mongoose = require("mongoose");
 const https = require("https");
 

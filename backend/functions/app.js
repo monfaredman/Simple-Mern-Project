@@ -11,6 +11,7 @@ const mongoose = require("mongoose");
 const https = require("https");
 
 const app = express();
+const router = express.Router();
 
 // Middleware to redirect HTTP to HTTPS
 // const forceHttps = (req, res, next) => {
@@ -38,6 +39,8 @@ app.use(
     methods: ["GET", "POST", "DELETE", "PATCH"],
   })
 );
+
+app.use("/.netlify/functions/api", router);
 
 app.use("/api/places", placeRoutes);
 app.use("/api/users", usersRoutes);
@@ -75,4 +78,5 @@ mongoose
   });
 
 // Export your app wrapped in serverless-http
+app.use("/.netlify/functions/api", router);
 module.exports.handler = serverless(app);

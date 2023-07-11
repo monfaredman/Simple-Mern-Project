@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "build": "echo 'No build steps required'"
   },
   "author": "monfaredman",
   "license": "ISC",

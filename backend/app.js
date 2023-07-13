@@ -62,9 +62,13 @@ const options = {
   cert: fs.readFileSync("./certificate.pem"), // Update with your certificate file path
 };
 
+// mongoose
+//   .connect(
+//     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.e2p0gjl.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
+//   )
 mongoose
   .connect(
-    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.e2p0gjl.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
+    `mongodb+srv://moslemhosseinpour1998:moslemHosseinpour1998@cluster0.e2p0gjl.mongodb.net/?retryWrites=true&w=majority`
   )
   .then(() => {
     console.log("connected to database!");

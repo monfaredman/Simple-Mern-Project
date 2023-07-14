@@ -12,14 +12,14 @@ const https = require("https");
 const app = express();
 
 // Middleware to redirect HTTP to HTTPS
-const forceHttps = (req, res, next) => {
-  if (!req.secure) {
-    return res.redirect(`https://${req.headers.host}${req.url}`);
-  }
-  next();
-};
+// const forceHttps = (req, res, next) => {
+//   if (!req.secure) {
+//     return res.redirect(`https://${req.headers.host}${req.url}`);
+//   }
+//   next();
+// };
 
-app.use(forceHttps);
+// app.use(forceHttps);
 app.use(bodyParser.json());
 app.use(
   "/uploads/images",
@@ -75,7 +75,7 @@ mongoose
 
     const server = https.createServer(options, app);
     server.listen(process.env.PORT || 5000, () => {
-      console.log("Server running on port 5000");
+      console.log(`Server running on port ${process.env.PORT || 5000}`);
     });
   })
   .catch((err) => {

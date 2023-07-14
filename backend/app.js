@@ -7,7 +7,7 @@ const usersRoutes = require("./routes/users.js");
 const bodyParser = require("body-parser");
 const HttpError = require("./models/http-error");
 const mongoose = require("mongoose");
-const https = require("https");
+// const https = require("https");
 
 const app = express();
 
@@ -57,10 +57,10 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occurred!" });
 });
 
-const options = {
-  key: fs.readFileSync("./private-key.pem"), // Update with your private key file path
-  cert: fs.readFileSync("./certificate.pem"), // Update with your certificate file path
-};
+// const options = {
+//   key: fs.readFileSync("./private-key.pem"), // Update with your private key file path
+//   cert: fs.readFileSync("./certificate.pem"), // Update with your certificate file path
+// };
 
 // mongoose
 //   .connect(
@@ -71,11 +71,12 @@ mongoose
     `mongodb+srv://moslemhosseinpour1998:moslemHosseinpour1998@cluster0.e2p0gjl.mongodb.net/?retryWrites=true&w=majority`
   )
   .then(() => {
+    // const server = https.createServer(options, app);
     console.log("connected to database!");
 
-    const server = https.createServer(options, app);
-    server.listen(process.env.PORT || 3000, () => {
-      console.log(`Server running on port ${process.env.PORT || 5000}`);
+    const port = process.env.PORT || 5000;
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
     });
   })
   .catch((err) => {
